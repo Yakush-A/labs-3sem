@@ -1,0 +1,20 @@
+@startuml Lab1
+
+class Matrix {
+    - mRows: unsigned int
+    - mCols: unsigned int
+    - mpMatrix: int*
+    
+    + Matrix()
+    + Matrix(rows: int, cols: int)
+    + Matrix(m: Matrix&)
+    + ~Matrix()
+    + getrows(): int
+    + getcols(): int
+    + get_ij(row: int, col: int): int
+    + fill(): Matrix
+    + print(): void
+    + add(m: Matrix&): Matrix
+}
+
+@enduml

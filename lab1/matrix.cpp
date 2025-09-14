@@ -25,7 +25,7 @@ Matrix Matrix::fill()
         {
             for(unsigned j=0; j<mCols; j++)
             {
-                std::cout<<"Введите ["<<i+1<<"]["<<j+1<<"] элемент матрицы: ";
+                std::cout<<std::setw(7)<<"Введите ["<<i+1<<"]["<<j+1<<"] элемент матрицы: ";
                 std::cin>>mpMatrix[i*mCols+j];
             }
         }
@@ -62,4 +62,6 @@ Matrix Matrix::chsize(unsigned rows, unsigned cols)
 
     mRows = rows;
     mCols = cols;
+
+    return *this;
 }
