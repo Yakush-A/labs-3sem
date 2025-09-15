@@ -1,42 +1,43 @@
+#include<iostream>
+#include<iomanip>
+
 class Matrix
 {
     private:
-    int *mpMatrix;
-    unsigned mRows, mCols;
+    int *mpMatrix;                      //указатель на память, выделенную под матрицу
+    unsigned mRows, mCols;              //количество строк и столбцов матрицы
 
     public:
 
-    Matrix()
+    Matrix()                            //конструктор без параметров
     {
         mpMatrix = nullptr;
         mCols = mRows = 0;
     }
-    Matrix(unsigned rows, unsigned cols)
-    {
+    Matrix(unsigned rows, unsigned cols)//конструктор с параметами 
+    {                                   //(количество строк, столбцов матрицы)
         mRows = rows;
         mCols = cols;
         mpMatrix = new int[rows*cols];
     }
 
-    Matrix(Matrix& m)
+    Matrix(Matrix& m)                   //конструктор копирования
     {
         mRows = m.mRows;
         mCols = m.mCols;
         mpMatrix = new int[m.mRows*m.mCols];
-        for(int i=0; i<mRows*mCols; i++)
+        for(unsigned i=0; i<mRows*mCols; i++)
             mpMatrix[i] = m.mpMatrix[i];
     }
 
-    ~Matrix()
+    ~Matrix()                           //деструктор
     {
         if(mpMatrix != nullptr) delete[] mpMatrix;
     }
 
 
-    void print();
-    
-    Matrix chsize(unsigned rows, unsigned cols);
-    Matrix fill();
-    Matrix add(Matrix& m);
+    void print();                       //функция вывода матрицы на экран
+    void fill();                        //функция заполнения матрицы с клавиатуры
+    void add(Matrix& m);                //функция добавления к матрице другой матрицы
 
 };
