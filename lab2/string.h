@@ -10,10 +10,9 @@ private:
     unsigned mLength;
 
 public:
-    String()
+    String() : mLength(0)
     {
-        mpStr = nullptr;
-        mLength = 0;
+        mpStr = new char(0);
     }
 
     String(const char* src)
@@ -58,6 +57,7 @@ public:
 
     String(String& src)
     {
+        std::cout<<"<Конструктор копирования>"<<std::endl;
         mLength = src.mLength;
         if(src.mLength != 0)
         {
@@ -75,9 +75,10 @@ public:
 
     inline unsigned length();
 
+    String& operator = (String& src);
+    
     String operator + (String& src);
     String& operator += (String& src);
-
     
     friend std::istream& operator >> (std::istream& is, String& str);
     friend std::ostream& operator << (std::ostream& os, String& str);

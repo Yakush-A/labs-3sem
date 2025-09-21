@@ -9,7 +9,8 @@ void Matrix::print()
         {
             for(unsigned j=0; j<mCols; j++)
             {
-                std::cout<<std::setw(7)<<mpMatrix[i*mCols+j]<<' ';
+                std::cout<<std::setw(7)<<std::left<<
+                mpMatrix[i*mCols+j]<<' ';
             }
             std::cout<<std::endl;
         }
@@ -19,7 +20,7 @@ void Matrix::print()
 //функция заполнения матрицы с клавиатуры
 void Matrix::fill()
 {
-    if(mpMatrix!=0)
+    if(mpMatrix!=nullptr)
     {
         for(unsigned i=0; i<mRows; i++)
         {
@@ -33,12 +34,14 @@ void Matrix::fill()
 }
 
 //функция добавления к матрице другой матрицы
-void Matrix::add(Matrix& m)
+Matrix& Matrix::add(Matrix& m)
 {
-    if(m.mRows==mRows && m.mCols==mCols && mpMatrix != 0)
+    if(mpMatrix!=nullptr && m.mpMatrix!=nullptr)
     {
         for(unsigned i=0; i<mRows*mCols; i++)
         mpMatrix[i]+=m.mpMatrix[i];
     }
-    else std::cout<<"Ошибка! Матрицы имеют разный размер!"<<std::endl;
+    else std::cout<<"Ошибка! Матрицы должны быть инициализированы!"<<std::endl;
+
+    return *this;
 }

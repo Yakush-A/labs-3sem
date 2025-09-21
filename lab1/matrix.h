@@ -8,7 +8,6 @@ class Matrix
     unsigned mRows, mCols;              //количество строк и столбцов матрицы
 
     public:
-
     Matrix()                            //конструктор без параметров
     {
         mpMatrix = nullptr;
@@ -38,6 +37,6 @@ class Matrix
 
     void print();                       //функция вывода матрицы на экран
     void fill();                        //функция заполнения матрицы с клавиатуры
-    void add(Matrix& m);                //функция добавления к матрице другой матрицы
+    Matrix& add(Matrix& m);             //функция добавления к матрице другой матрицы
 
 };

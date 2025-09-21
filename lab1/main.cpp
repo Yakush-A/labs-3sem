@@ -1,4 +1,4 @@
-#include "matrix.h"
+#include "matrix.cpp"
 
 int main()
 {
@@ -12,11 +12,13 @@ int main()
         std::cout<<"Введите количество столбцов матрицы: ";
         std::cin>>cols;
 
+        std::cout<<"Ввод матрицы №1"<<std::endl;
         Matrix matrix1(rows, cols);                         //создание и заполнение первой матрицы
         matrix1.fill();
         std::cout<<"Матрица №1:"<<std::endl;
         matrix1.print();
 
+        std::cout<<"Ввод матрицы №2"<<std::endl;
         Matrix matrix2(rows, cols);                         //создание и заполнение второй матрицы
         matrix2.fill();
         std::cout<<"Матрица №2:"<<std::endl;
