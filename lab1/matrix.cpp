@@ -39,7 +39,7 @@ Matrix& Matrix::add(Matrix& m)
     if(mpMatrix!=nullptr && m.mpMatrix!=nullptr)
     {
         for(unsigned i=0; i<mRows*mCols; i++)
-        mpMatrix[i]+=m.mpMatrix[i];
+        this->mpMatrix[i]+=m.mpMatrix[i];
     }
     else std::cout<<"Ошибка! Матрицы должны быть инициализированы!"<<std::endl;
 
