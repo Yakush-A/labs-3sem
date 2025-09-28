@@ -56,36 +56,35 @@ public:
 
 
     String(String& src)
-    {
-        std::cout<<"<Конструктор копирования>"<<std::endl;
+    {        
         mLength = src.mLength;
-        if(src.mLength != 0)
-        {
-            mpStr = new char[mLength+1]{};
-            strcpy(mpStr, src.mpStr);
-        }
-        else mpStr = nullptr;
+        mpStr = new char[mLength+1]{};
+        strcpy(mpStr, src.mpStr);
     }
 
 
     ~String()
     {
-        if(mLength!=0) delete[] mpStr;
+        delete[] mpStr;
     }
 
     inline unsigned length();
 
-    String& operator = (String& src);
+    String& operator = (const String& src);
     
     String operator + (String& src);
-    String& operator += (String& src);
+    String& operator += (const String& src);
     
+    friend String operator + (char* left, String& right);
+    friend String operator + (String& left, char* right);
+    friend String operator + (String& left, String& right);
+
     friend std::istream& operator >> (std::istream& is, String& str);
-    friend std::ostream& operator << (std::ostream& os, String& str);
+    friend std::ostream& operator << (std::ostream& os, const String& str);
     
-    inline bool operator < (String str);
-    inline bool operator > (String str);
-    inline bool operator == (String str);
-    inline bool operator != (String str);
+    inline bool operator < (String const str);
+    inline bool operator > (String const str);
+    inline bool operator == (String const str);
+    inline bool operator != (String const str);
     inline char operator [] (unsigned index);
 };

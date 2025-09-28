@@ -2,6 +2,7 @@
     "files.associations": {
         "ostream": "cpp",
         "iomanip": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "iosfwd": "cpp"
     }
 }

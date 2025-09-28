@@ -3,18 +3,38 @@
 String String::operator + (String& src)
 {
     char* tmp = new char[mLength + src.mLength + 1]{};
-    if(mLength     != 0) strcat(tmp, mpStr);
-    if(src.mLength != 0) strcat(tmp, src.mpStr);
+    strcat(tmp, mpStr);
+    strcat(tmp, src.mpStr);
     return String(tmp);
 }
-String& String::operator += (String& src)
+String operator + (char* left, String& right)
+{
+    return String(left) + right;
+}
+String operator + (String& left, char* right)
+{
+    return left + String(right);
+}
+
+String operator + (String& left, String& right)
+{
+    String sum;
+    sum.mLength = left.mLength + right.mLength;
+    sum.mpStr = new char[sum.mLength + 1];
+    
+    return sum;
+}
+
+String& String::operator += (const String& src)
 {
     mLength += src.mLength;
     char* tmp = new char[mLength + 1]{};
-    if(mLength     != 0) strcat(tmp, mpStr);
-    if(src.mLength != 0) strcat(tmp, src.mpStr);
+
+    strcat(tmp, mpStr);
+    strcat(tmp, src.mpStr);
     
     delete[] mpStr;
+
     mpStr = tmp;
     mLength += src.mLength; 
     
@@ -26,12 +46,14 @@ inline char String::operator [] (unsigned index)
     else return 0;
 }
 
-String& String::operator = (String& src)
+String& String::operator = (const String& src)
 {
-    std::cout<<"<Перегруженный =>"<<std::endl;
     if(mpStr != src.mpStr)
     {
+        delete[] mpStr;
+
         mLength = src.mLength;
+        
         mpStr = new char[src.mLength+1]{};
         strcpy(mpStr, src.mpStr);
     }
@@ -44,12 +66,13 @@ std::istream& operator >> (std::istream& is, String& str)
     is >> buffer;
     
     str.mLength = strlen(buffer);
+    
     str.mpStr = new char[str.mLength+1]{};
     strcpy(str.mpStr, buffer);
 
     return is;
 }
-std::ostream& operator << (std::ostream& os, String& str)
+std::ostream& operator << (std::ostream& os, const String& str)
 {
     os<<str.mpStr;
 
@@ -57,20 +80,19 @@ std::ostream& operator << (std::ostream& os, String& str)
 }
 
 
-inline bool String::operator < (String str)
+inline bool String::operator < (const String str)
 {
     return strcmp(mpStr, str.mpStr) == 1;
 }
-inline bool String::operator > (String str)
+inline bool String::operator > (const String str)
 {
     return strcmp(mpStr, str.mpStr) == -1;
 }
-inline bool String::operator == (String str)
+inline bool String::operator == (const String str)
 {
     return strcmp(mpStr, str.mpStr) == 0;
 }
-inline bool String::operator != (String str)
+inline bool String::operator != (const String str)
 {
     return strcmp(mpStr, str.mpStr) != 0;
 }
-
