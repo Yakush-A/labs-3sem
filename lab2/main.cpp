@@ -50,7 +50,7 @@ int main(void)
     
     String str4 = str3 + " еще слово)" + " опа еще одно";
     std::cout<<str4<<std::endl;
-    String str5 = "a" + "a";
+    String str5 = "a";
 
 
 }

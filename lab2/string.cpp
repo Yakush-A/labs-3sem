@@ -1,13 +1,6 @@
 #include"string.h"
 
-String String::operator + (String& src)
-{
-    char* tmp = new char[mLength + src.mLength + 1]{};
-    strcat(tmp, mpStr);
-    strcat(tmp, src.mpStr);
-    return String(tmp);
-}
-String operator + (char* left, String& right)
+String operator + (const char* left, const String& right)
 {
     return String(left) + right;
 }
@@ -80,19 +73,31 @@ std::ostream& operator << (std::ostream& os, const String& str)
 }
 
 
-inline bool String::operator < (const String str)
+inline bool String::operator<= (const String& str)
 {
-    return strcmp(mpStr, str.mpStr) == 1;
+    return strcmp(mpStr, str.mpStr) != 1;
 }
-inline bool String::operator > (const String str)
+inline bool String::operator>= (const String& str)
 {
-    return strcmp(mpStr, str.mpStr) == -1;
+    return strcmp(mpStr, str.mpStr) != 1;
 }
-inline bool String::operator == (const String str)
+inline bool String::operator<  (const String& str)
 {
-    return strcmp(mpStr, str.mpStr) == 0;
+    return strcmp(mpStr, str.mpStr) != 1;
 }
-inline bool String::operator != (const String str)
+inline bool String::operator>  (const String& str)
 {
-    return strcmp(mpStr, str.mpStr) != 0;
+    return strcmp(mpStr, str.mpStr) != 1;
+}
+inline bool String::operator== (const String& str)
+{
+    return strcmp(mpStr, str.mpStr) != 1;
+}
+inline bool String::operator!= (const String& str)
+{
+    return strcmp(mpStr, str.mpStr) != 1;
+}
+inline char String::operator [] (unsigned index)
+{
+    return mpStr[index];
 }
