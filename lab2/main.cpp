@@ -1,7 +1,22 @@
 #include"string.cpp"
 #include<string>
+#include<cstdint>
 int main(void)
 {
+
+    char32_t nigger = U'🥵';
+    String nigga = "нигга";
+    std::cout<<nigga<<" len = "<<nigga.length()<<std::endl;
+    std::cout<<nigga<<" size = "<<nigga.size()<<std::endl;
+
+    std::cout<< std::hex << static_cast<uint32_t>(nigger)<<std::endl;
+
+
+
+
+
+
+
     //СОЗДАНИЕ СТРОКИ ИЗ МАССИВА СИМВОЛОВ
     char ss[] = "Строка для примера";
     char* ptr = ss; 
@@ -50,7 +65,4 @@ int main(void)
     
     String str4 = str3 + " еще слово)" + " опа еще одно";
     std::cout<<str4<<std::endl;
-    String str5 = "a" + "a";
-
-
 }

@@ -7,84 +7,58 @@ class String
 
 private:
     char* mpStr;
-    unsigned mLength;
+    unsigned mSize;
 
 public:
-    String() : mLength(0)
-    {
-        mpStr = new char(0);
-    }
+    String() : mSize(0), mpStr(nullptr) {}
 
-    String(const char* src)
+    String(const char* src) : mSize(0), mpStr(nullptr)
     {
-        mLength = strlen(src);
-        mpStr = new char[mLength+1]{};
-        strcpy(mpStr, src);
-    }
-
-    String(String src, unsigned start, unsigned length)
-    {
-        if(start + length <= src.mLength)
+        if(src != nullptr)
         {
-            mLength = length;
-            mpStr = new char[length+1];
-            strncpy(mpStr, src.mpStr+start, length);
-        }
-        else 
-        {
-            std::cout<<"Ошибка! Некорректный размер подстроки"<<std::endl;
-            mpStr = nullptr;
-            mLength = 0;
+            mSize = strlen(src);
+            mpStr = new char[mSize+1]{};
+            strcpy(mpStr, src);
         }
     }
-
-    String(const char* src, unsigned start, unsigned length)
-    {
-        if(start + length <= strlen(src))
-        {
-            mLength = length;
-            mpStr = new char[length+1];
-            strncpy(mpStr, src+start, length);
-        }
-        else 
-        {
-            std::cout<<"Ошибка! Некорректный размер подстроки"<<std::endl;
-            mpStr = nullptr;
-            mLength = 0;
-        }
-    }
-
 
     String(String& src)
     {        
-        mLength = src.mLength;
-        mpStr = new char[mLength+1]{};
-        strcpy(mpStr, src.mpStr);
+        mSize = src.mSize;
+        if(mSize != 0)
+        {
+            mpStr = new char[mSize+1]{};
+            strcpy(mpStr, src.mpStr);
+        }
+        else mpStr = nullptr;
     }
-
 
     ~String()
     {
-        delete[] mpStr;
+        if(mpStr != nullptr) delete[] mpStr;
     }
 
+    inline unsigned size();
     inline unsigned length();
 
     String& operator = (const String& src);
     
-    String operator + (String& src);
     String& operator += (const String& src);
     
-    friend String operator + (char* left, String& right);
-    friend String operator + (String& left, char* right);
-    friend String operator + (String& left, String& right);
+    String operator () (unsigned start, unsigned length); 
 
+    friend String operator + (const char* left, const String& right);
+    friend String operator + (const String& left, const char* right);
+    friend String operator + (const String& left, const String& right);
+    
     friend std::istream& operator >> (std::istream& is, String& str);
     friend std::ostream& operator << (std::ostream& os, const String& str);
     
-    inline bool operator < (String const str);
-    inline bool operator > (String const str);
-    inline bool operator == (String const str);
-    inline bool operator != (String const str);
-    inline char operator [] (unsigned index);
+    inline bool operator <  (const String& str);
+    inline bool operator >  (const String& str);
+    inline bool operator <= (const String& str);
+    inline bool operator >= (const String& str);
+    inline bool operator == (const String& str);
+    inline bool operator != (const String& str);
+    inline char32_t operator [] (unsigned index);
 };
