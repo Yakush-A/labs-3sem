@@ -6,62 +6,80 @@ class String
 {
 
 private:
-    char* mpStr;
-    unsigned mLength;
+    //указатель на массив символов
+    char* mpStr; 
+    //размер массива
+    unsigned mSize;
 
 public:
-    String() : mLength(0), mpStr(nullptr)
-    {
+    //конструкторы без, с параметрами
+    String() : mSize(0), mpStr(nullptr)
+    { }
 
-    }
-
-    String(const char* src) : mLength(0), mpStr(nullptr)
+    String(const char* src)
     {
-        if(src != nullptr)
+        mSize = strlen(src);
+        if(mSize != 0)
         {
-            mLength = strlen(src);
-            mpStr = new char[mLength+1]{};
+            mpStr = new char[mSize+1]{};
             strcpy(mpStr, src);
         }
-    }
-
-    String(String& src)
-    {
-        mLength = src.mLength;
-
-        if(mLength != 0)
-        {
-            mpStr = new char[mLength+1]{};
-            strcpy(mpStr, src.mpStr);
-        }        
         else mpStr = nullptr;
     }
 
-
-    ~String()
-    {
-        if(mpStr != nullptr) delete[] mpStr;
+    //конструктор копирования
+    String(String& src)
+    {        
+        mSize = src.mSize;
+        if(mSize != 0)
+        {
+            mpStr = new char[mSize+1]{};
+            strcpy(mpStr, src.mpStr);
+        }
+        else mpStr = nullptr;
     }
 
+    //деструктор
+    ~String()
+    {
+        if(mpStr != nullptr && mSize != 0) delete[] mpStr;
+    }
+
+    //метод получения размера в байтах строки
+    inline unsigned size();
+
+    //метод получения длины в символах строки
     inline unsigned length();
 
+    //оператор присваивания
     String& operator = (const String& src);
-
+    
     String& operator += (const String& src);
     
-    friend String operator + (char* left, String& right);
-    friend String operator + (String& left, char* right);
-    friend String operator + (String& left, String& right);
+    //оператор получения подстроки длиной length начиная с символа start
+    String operator () (unsigned start, unsigned length);  
 
+    //перегрузки +
+    friend String operator + (const char* left, const String& right);
+    friend String operator + (const String& left, const char* right);
+    friend String operator + (const String& left, const String& right);
+    
+    //перегрузки ввода-вывода
     friend std::istream& operator >> (std::istream& is, String& str);
     friend std::ostream& operator << (std::ostream& os, const String& str);
     
+    //оператор получения элемента строки
+    inline char operator [] (unsigned index);
 
+    //операции лексикографического сравнения строк 
     inline bool operator <= (const String& str);
     inline bool operator >= (const String& str);
     inline bool operator <  (const String& str);
     inline bool operator >  (const String& str);
     inline bool operator == (const String& str);
     inline bool operator != (const String& str);
-    inline char operator [] (unsigned index);
+
+    //операции инкремента/декремента
+    String& operator ++ (int);
+    String& operator -- (int);
 };

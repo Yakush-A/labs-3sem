@@ -1,103 +1,194 @@
 #include"string.h"
 
+//перегрузка оператора + для разных типов операндов
 String operator + (const char* left, const String& right)
 {
     return String(left) + right;
 }
-String operator + (String& left, char* right)
+String operator + (const String& left, const char* right)
 {
     return left + String(right);
 }
-
-String operator + (String& left, String& right)
+String operator + (const String& left, const String& right)
 {
     String sum;
-    sum.mLength = left.mLength + right.mLength;
-    sum.mpStr = new char[sum.mLength + 1];
+    sum.mSize = left.mSize + right.mSize;
     
+    if(sum.mSize != 0) 
+    {    sum.mpStr = new char[sum.mSize + 1];
+    
+        if(left.mpStr != nullptr) strcat(sum.mpStr, left.mpStr);
+        else sum.mpStr[0] = '\0';
+
+        if(right.mpStr != nullptr)strcat(sum.mpStr, right.mpStr);
+    }
     return sum;
 }
 
 String& String::operator += (const String& src)
 {
-    mLength += src.mLength;
-    char* tmp = new char[mLength + 1]{};
-
-    strcat(tmp, mpStr);
-    strcat(tmp, src.mpStr);
-    
-    delete[] mpStr;
-
-    mpStr = tmp;
-    mLength += src.mLength; 
-    
+    *this = *this + src;
     return *this;
 }
+
+//оператор получения элемента строки
 inline char String::operator [] (unsigned index)
 {
-    if(index < mLength) return mpStr[index];
-    else return 0;
+    if(index <= mSize && mSize != 0) return mpStr[index];
+    else return 0;    
 }
 
+//оператор присваивания
 String& String::operator = (const String& src)
 {
-    if(mpStr != src.mpStr)
+    if(this != &src)
     {
-        delete[] mpStr;
+        if(mpStr != nullptr) delete[] mpStr;
 
-        mLength = src.mLength;
+        mSize = src.mSize;
         
-        mpStr = new char[src.mLength+1]{};
-        strcpy(mpStr, src.mpStr);
+        if(src.mpStr != nullptr)
+        {
+            mpStr = new char[src.mSize+1]{};
+            strcpy(mpStr, src.mpStr);
+        }
     }
     return *this;
 }
 
+//оператор получения подстроки длиной length начиная с символа start
+String String::operator () (unsigned start, unsigned length)
+{
+    String res;
+
+    if(mpStr == nullptr) return res;
+
+    unsigned char_len;
+    unsigned chars{}, start_pos{}, end_pos{};
+    
+    unsigned i{};
+    while (i<mSize)
+    {
+        if      ((mpStr[i] & 0x80) == 0x00) char_len = 1;  
+        else if ((mpStr[i] & 0xE0) == 0xC0) char_len = 2;
+        else if ((mpStr[i] & 0xF0) == 0xE0) char_len = 3;
+        else if ((mpStr[i] & 0xF8) == 0xF0) char_len = 4;
+
+        if(chars == start) start_pos = i;
+
+        chars++;
+        if(chars == start + length){
+            end_pos = i + char_len;
+            break;
+        } 
+        i += char_len;
+    }
+    
+    if(chars < start + length) return res;
+    res.mSize = end_pos - start_pos;
+    res.mpStr = new char[res.mSize + 1] {};
+
+    strncpy(res.mpStr, mpStr+start_pos, res.mSize);
+
+    return res;
+} 
+
+//перегрузки ввода-вывода
 std::istream& operator >> (std::istream& is, String& str)
 {
-    char buffer[81]{};
-    is >> buffer;
+    char buffer[ 80 * sizeof(char32_t) + 1]{};
     
-    str.mLength = strlen(buffer);
+    std::cin.getline(buffer, 80*sizeof(char32_t));
+
+    str.mSize = strlen(buffer);
     
-    str.mpStr = new char[str.mLength+1]{};
+    str.mpStr = new char[str.mSize+1]{};
     strcpy(str.mpStr, buffer);
 
     return is;
 }
 std::ostream& operator << (std::ostream& os, const String& str)
 {
-    os<<str.mpStr;
+    if(str.mpStr != nullptr) os<<str.mpStr;
 
     return os;
 }
 
+//операции лексикографического сравнения строк 
+inline bool String::operator <  (const String& str)
+{
+    return strcmp(mpStr, str.mpStr) != 1;
+}
+inline bool String::operator <= (const String& str)
+{
+    return strcmp(mpStr, str.mpStr) != 1;
+}
+inline bool String::operator >  (const String& str)
+{
+    return strcmp(mpStr, str.mpStr) == 1;
+}
+inline bool String::operator >= (const String& str)
+{
+    return strcmp(mpStr, str.mpStr) != -1;
+}
+inline bool String::operator == (const String& str)
+{
+    return strcmp(mpStr, str.mpStr) == 0;
+}
+inline bool String::operator != (const String& str)
+{
+    return strcmp(mpStr, str.mpStr) != 0;
+}
 
-inline bool String::operator<= (const String& str)
+
+inline unsigned String::size()
 {
-    return strcmp(mpStr, str.mpStr) != 1;
+    return mSize;
 }
-inline bool String::operator>= (const String& str)
+inline unsigned String::length()
 {
-    return strcmp(mpStr, str.mpStr) != 1;
+    unsigned length{};
+    for(unsigned i{}; i<mSize; i++)
+        if((mpStr[i] & 0x40) != 0x00 || (mpStr[i] & 0x80) == 0x00) length++;
+    return length;
 }
-inline bool String::operator<  (const String& str)
+
+//операции инкремента/декремента
+String& String::operator ++ (int)
 {
-    return strcmp(mpStr, str.mpStr) != 1;
+    if(mpStr == nullptr) return *this;
+
+    unsigned char_len;   
+    unsigned i{};
+    while (i<mSize)
+    {
+        if ((mpStr[i] & 0x80) == 0x00) char_len = 1;  
+        else if ((mpStr[i] & 0xE0) == 0xC0) char_len = 2;
+        else if ((mpStr[i] & 0xF0) == 0xE0) char_len = 3;
+        else if ((mpStr[i] & 0xF8) == 0xF0) char_len = 4;
+
+        i += char_len;
+        mpStr[i-1]++;
+    }
+    
+    return *this;
 }
-inline bool String::operator>  (const String& str)
+String& String::operator -- (int)
 {
-    return strcmp(mpStr, str.mpStr) != 1;
-}
-inline bool String::operator== (const String& str)
-{
-    return strcmp(mpStr, str.mpStr) != 1;
-}
-inline bool String::operator!= (const String& str)
-{
-    return strcmp(mpStr, str.mpStr) != 1;
-}
-inline char String::operator [] (unsigned index)
-{
-    return mpStr[index];
+    if(mpStr == nullptr) return *this;
+
+    unsigned char_len;   
+    unsigned i{};
+    while (i<mSize)
+    {
+        if ((mpStr[i] & 0x80) == 0x00) char_len = 1;  
+        else if ((mpStr[i] & 0xE0) == 0xC0) char_len = 2;
+        else if ((mpStr[i] & 0xF0) == 0xE0) char_len = 3;
+        else if ((mpStr[i] & 0xF8) == 0xF0) char_len = 4;
+
+        i += char_len;
+        mpStr[i-1]--;
+    }
+    
+    return *this;
 }
