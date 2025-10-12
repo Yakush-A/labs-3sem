@@ -5,5 +5,6 @@ class StationaryComputer : public Computer
 {
 private:
     unsigned int PSUPowerInWatts;
+public:
     
 };

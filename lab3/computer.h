@@ -10,13 +10,12 @@ private:
     unsigned long storageCapacityInGBytes;
     std::string CPUName;
     std::string GPUName;
-    std::string motherBoardName;
 
 public:
     Computer(unsigned long RAM, unsigned long storage, 
-        std::string CPU, std::string GPU, std::string MoBo) :
+        std::string CPU, std::string GPU) :
         RAMInGBytes(RAM), storageCapacityInGBytes(storage), 
-        CPUName(CPU), GPUName(GPU), motherBoardName(MoBo) 
+        CPUName(CPU), GPUName(GPU) 
     {
     }
 
@@ -37,13 +36,11 @@ public:
     void setStorage(unsigned long capacity);
     void setCPUName(std::string name);
     void setGPUName(std::string name);
-    void setMoBoName(std::string name);
 
 
     unsigned long getRAM();
     unsigned long getStorage();
     std::string getCPUName();
     std::string getGPUName();
-    std::string getMoBoName();
 
 };

@@ -15,10 +15,6 @@ void Computer::setGPUName(std::string name)
 {
     this->GPUName = name;
 }
-void Computer::setMoBoName(std::string name)
-{
-    this->motherBoardName = name;
-}
 
 
 unsigned long Computer::getRAM()
@@ -37,10 +33,6 @@ std::string Computer::getGPUName()
 {
     return GPUName;
 } 
-std::string Computer::getMoBoName()
-{
-    return motherBoardName;
-}
 
 
 std::ostream& operator << (std::ostream& os, Computer& PC)
@@ -48,7 +40,6 @@ std::ostream& operator << (std::ostream& os, Computer& PC)
     os<<std::setw(5)<<PC.RAMInGBytes<<"GB|"<<
         std::setw(5)<<PC.storageCapacityInGBytes<<"GB|"<<
         std::setw(15)<<PC.CPUName<<'|'<<
-        std::setw(15)<<PC.GPUName<<'|'<<
-        std::setw(15)<<PC.motherBoardName;
+        std::setw(15)<<PC.GPUName;
     return os;
 } 

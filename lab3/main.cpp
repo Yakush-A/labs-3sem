@@ -1,5 +1,4 @@
 #include"computer.cpp"
-#include"portableComputer.cpp"
 #include"stationaryComputer.cpp"
 #include"tablet.cpp"
 #include"laptop.cpp"
@@ -7,7 +6,12 @@
 
 int main(void)
 {
-    Computer niggapc(16, 1000, "kykyryzen 9", "rtx 6090", "ur mom");
+    Computer* dihpc;
 
+    Computer niggapc(16, 1000, "kykyryzen 9", "rtx 6090");
+    
+    dihpc = &niggapc;
+
+    std::cout<<dihpc->getCPUName()<<std::endl;
     std::cout<<niggapc<<std::endl;
 }
