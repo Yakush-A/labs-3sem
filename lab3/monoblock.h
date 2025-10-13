@@ -1,13 +1,29 @@
 #pragma once
 
 #include"stationaryComputer.h"
-#include"screen.h"
 
-class Monoblock : public StationaryComputer, public Screen
+
+class Monoblock : public StationaryComputer
 {
-private:
-    
+protected:
+    double screenSize;
 
 public:
+    Monoblock() : StationaryComputer(), screenSize(0.0)
+    {
+    }
+    Monoblock(unsigned RAM, unsigned storage, 
+        std::string CPU, std::string GPU,
+        unsigned PSU, double screen) :
+        StationaryComputer(RAM, storage, CPU, GPU, PSU),screenSize(0)
+    {
+    }
+
+    friend inline std::ostream& operator << (std::ostream& os, Monoblock& PC);
+
+    Monoblock(Monoblock& src);
+    ~Monoblock();
+
+    virtual inline void printTable();
 
 };

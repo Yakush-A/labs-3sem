@@ -3,7 +3,7 @@
 
 class Matrix
 {
-    private:
+    protected:
     int *mpMatrix;                      //указатель на память, выделенную под матрицу
     unsigned mRows, mCols;              //количество строк и столбцов матрицы
 
@@ -35,7 +35,7 @@ class Matrix
     }
 
 
-    void print();                       //функция вывода матрицы на экран
+    void printTable();                       //функция вывода матрицы на экран
     void fill();                        //функция заполнения матрицы с клавиатуры
     Matrix& add(Matrix& m);             //функция добавления к матрице другой матрицы
 

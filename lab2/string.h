@@ -5,7 +5,7 @@
 class String
 {
 
-private:
+protected:
     //указатель на массив символов
     char* mpStr; 
     //размер массива

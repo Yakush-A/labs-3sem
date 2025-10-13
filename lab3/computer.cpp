@@ -1,45 +1,51 @@
 #include"computer.h"
-void Computer::setRAM(unsigned long size)
+inline void Computer::setRAM(unsigned size)
 {
     this->RAMInGBytes = size;
 }
-void Computer::setStorage(unsigned long capacity)
+inline void Computer::setStorage(unsigned capacity)
 {
     this->storageCapacityInGBytes = capacity;
 }
-void Computer::setCPUName(std::string name)
+inline void Computer::setCPUName(std::string name)
 {
     this->CPUName = name;
 }
-void Computer::setGPUName(std::string name)
+inline void Computer::setGPUName(std::string name)
 {
     this->GPUName = name;
 }
 
-
-unsigned long Computer::getRAM()
+inline unsigned Computer::getRAM()
 {
     return RAMInGBytes;
 }
-unsigned long Computer::getStorage()
+inline unsigned Computer::getStorage()
 {
     return storageCapacityInGBytes;
 }
-std::string Computer::getCPUName()
+inline std::string Computer::getCPUName()
 {
     return CPUName;
 }
-std::string Computer::getGPUName()
+inline std::string Computer::getGPUName()
 {
     return GPUName;
 } 
 
 
-std::ostream& operator << (std::ostream& os, Computer& PC)
+inline void Computer::printTable()
 {
-    os<<std::setw(5)<<PC.RAMInGBytes<<"GB|"<<
-        std::setw(5)<<PC.storageCapacityInGBytes<<"GB|"<<
-        std::setw(15)<<PC.CPUName<<'|'<<
-        std::setw(15)<<PC.GPUName;
+    std::cout<<"| ОЗУ | ПЗУ |   Процессор   |Граф. Процессор|"<<std::endl;
+}
+
+inline std::ostream& operator << (std::ostream& os, Computer& PC)
+{
+    os<<'|'<<
+        std::setw(5)<<std::left<<PC.RAMInGBytes<<'|'<<
+        std::setw(5)<<std::left<<PC.storageCapacityInGBytes<<'|'<<
+        std::setw(15)<<std::left<<PC.CPUName<<'|'<<
+        std::setw(15)<<std::left<<PC.GPUName<<'|';
     return os;
 } 
+

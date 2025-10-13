@@ -1,13 +1,33 @@
 #pragma once
 #include"portableComputer.h" 
-#include"screen.h" 
 
-class Laptop : public PortableComputer, public Screen
+class Laptop : public PortableComputer
 {
-private:
+protected:
     std::string keyboardLayout;    
 
 public:
-    Laptop();
+    Laptop() : PortableComputer(), keyboardLayout()
+    {}
+    Laptop(unsigned RAM, unsigned storage, 
+        std::string CPU, std::string GPU,
+        unsigned battery, std::string keyboard) :
+
+        PortableComputer(RAM, storage, CPU, GPU, battery), 
+        keyboardLayout(keyboard)
+    {}
+    
+    Laptop(Laptop& src);
     ~Laptop();
+
+    friend inline std::ostream& operator << (std::ostream& os, Laptop& PC);
+
+    inline void setKeyboardLayout(std::string layout);
+    inline std::string getKeyboardLayout();
+
+    virtual inline void printTable();
+
 };
+
+
+

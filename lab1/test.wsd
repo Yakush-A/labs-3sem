@@ -13,7 +13,7 @@ class Matrix {
     + getcols(): int
     + get_ij(row: int, col: int): int
     + fill(): Matrix
-    + print(): void
+    + printTable(): void
     + add(m: Matrix&): Matrix
 }
 

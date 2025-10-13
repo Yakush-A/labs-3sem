@@ -5,14 +5,19 @@
 
 class Computer
 {
-private:
-    unsigned long RAMInGBytes;
-    unsigned long storageCapacityInGBytes;
+protected:
+    unsigned RAMInGBytes;
+    unsigned storageCapacityInGBytes;
     std::string CPUName;
     std::string GPUName;
 
 public:
-    Computer(unsigned long RAM, unsigned long storage, 
+    Computer() : 
+        RAMInGBytes(0), storageCapacityInGBytes(0),
+        CPUName(), GPUName()
+    {
+    } 
+    Computer(unsigned RAM, unsigned storage, 
         std::string CPU, std::string GPU) :
         RAMInGBytes(RAM), storageCapacityInGBytes(storage), 
         CPUName(CPU), GPUName(GPU) 
@@ -20,27 +25,26 @@ public:
     }
 
     Computer(Computer& src)
-    {
-        
+    {   
     }
     ~Computer()
     {
-
     }
 
 
-    friend std::ostream& operator << (std::ostream& os, Computer& PC); 
+    friend inline std::ostream& operator << (std::ostream& os, Computer& PC); 
+
+    virtual inline void printTable();
+
+    inline void setRAM(unsigned size);
+    inline void setStorage(unsigned capacity);
+    inline void setCPUName(std::string name);
+    inline void setGPUName(std::string name);
 
 
-    void setRAM(unsigned long size);
-    void setStorage(unsigned long capacity);
-    void setCPUName(std::string name);
-    void setGPUName(std::string name);
-
-
-    unsigned long getRAM();
-    unsigned long getStorage();
-    std::string getCPUName();
-    std::string getGPUName();
+    inline unsigned getRAM();
+    inline unsigned getStorage();
+    inline std::string getCPUName();
+    inline std::string getGPUName();
 
 };
