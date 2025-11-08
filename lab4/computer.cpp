@@ -1,4 +1,3 @@
-#include"computer.h"
 inline void Computer::setRAM(unsigned size)
 {
     this->RAMInGBytes = size;
@@ -36,7 +35,7 @@ inline std::string Computer::getGPUName()
 
 inline void Computer::printTable()
 {
-    std::cout<<"   | ОЗУ | ПЗУ |   Процессор   |Граф. Процессор|"<<std::endl;
+    std::cout<<"| ОЗУ | ПЗУ |   Процессор   |Граф. Процессор|"<<std::endl;
 }
 
 inline std::ostream& operator << (std::ostream& os, Computer& PC)
@@ -63,4 +62,38 @@ inline std::istream& operator >> (std::istream& is, Computer& PC)
     std::getline(is, PC.GPUName, '\n');
  
     return is;
+}
+
+bool Computer::operator==(const Computer& other) const
+{
+    return RAMInGBytes == other.RAMInGBytes &&
+           storageCapacityInGBytes == other.storageCapacityInGBytes &&
+           CPUName == other.CPUName &&
+           GPUName == other.GPUName;
+}
+
+bool Computer::operator!=(const Computer& other) const {
+    return !(*this == other);
+}
+
+bool Computer::operator<(const Computer& other) const {
+    if (RAMInGBytes != other.RAMInGBytes)
+        return RAMInGBytes < other.RAMInGBytes;
+    if (storageCapacityInGBytes != other.storageCapacityInGBytes)
+        return storageCapacityInGBytes < other.storageCapacityInGBytes;
+    if (CPUName != other.CPUName)
+        return CPUName < other.CPUName;
+    return GPUName < other.GPUName;
+}
+
+bool Computer::operator>(const Computer& other) const {
+    return other < *this;
+}
+
+bool Computer::operator<=(const Computer& other) const {
+    return !(other < *this);
+}
+
+bool Computer::operator>=(const Computer& other) const {
+    return !(*this < other);
 }

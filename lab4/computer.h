@@ -1,4 +1,7 @@
 #pragma once
+#ifndef COMPUTER_H
+#define COMPUTER_H
+
 #include<iostream>
 #include<iomanip>
 #include<string>
@@ -48,4 +51,16 @@ public:
     inline std::string getCPUName();
     inline std::string getGPUName();
 
+
+    bool operator==(const Computer& other) const;
+    bool operator!=(const Computer& other) const;
+    bool operator<(const Computer& other) const;
+    bool operator>(const Computer& other) const;
+    bool operator<=(const Computer& other) const;
+    bool operator>=(const Computer& other) const;
+
 };
+
+#include"computer.cpp"
+
+#endif
