@@ -16,18 +16,18 @@ int main()
         Matrix matrix1(rows, cols);                     //создание и заполнение первой матрицы
         matrix1.fill();
         std::cout<<"Матрица №1:"<<std::endl;
-        matrix1.print();
+        matrix1.printTable();
 
         std::cout<<"Ввод матрицы №2"<<std::endl;
         Matrix matrix2(rows, cols);                     //создание и заполнение второй матрицы
         matrix2.fill();
         std::cout<<"Матрица №2:"<<std::endl;
-        matrix2.print();
+        matrix2.printTable();
 
         std::cout<<"Сумма матриц №1 и №2:"<<std::endl;  //создание суммы матриц
         Matrix matrix12(matrix1);
         matrix12.add(matrix2);
-        matrix12.print();
+        matrix12.printTable();
 
         Matrix matrix3 = matrix12.add(matrix1);
 

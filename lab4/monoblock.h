@@ -1,4 +1,7 @@
 #pragma once
+#ifndef MONOBLOCK_H
+#define MONOBLOCK_H
+
 #include"stationaryComputer.h"
 
 class Monoblock : public StationaryComputer     //класс Моноблок
@@ -29,4 +32,15 @@ public:
     //функция печати шапки таблицы
     virtual inline void printTable();
 
+
+    bool operator==(const Monoblock& other) const;
+    bool operator!=(const Monoblock& other) const;
+    bool operator<(const Monoblock& other) const;
+    bool operator>(const Monoblock& other) const;
+    bool operator<=(const Monoblock& other) const;
+    bool operator>=(const Monoblock& other) const;
 };
+
+#include"monoblock.cpp"
+
+#endif

@@ -1,4 +1,7 @@
 #pragma once
+#ifndef TABLET_H
+#define TABLET_H
+
 #include"portableComputer.h"
 
 class Tablet : public PortableComputer          //класс Планшет
@@ -30,4 +33,16 @@ public:
 
     //функция печати шапки таблицы
     virtual inline void printTable();
+
+    // Операторы сравнения
+    bool operator==(const Tablet& other) const;
+    bool operator!=(const Tablet& other) const;
+    bool operator<(const Tablet& other) const;
+    bool operator>(const Tablet& other) const;
+    bool operator<=(const Tablet& other) const;
+    bool operator>=(const Tablet& other) const;
 };
+
+#include"tablet.cpp"
+
+#endif

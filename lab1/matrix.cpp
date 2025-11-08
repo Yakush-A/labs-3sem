@@ -1,7 +1,7 @@
 #include"matrix.h"
 
 //функция вывода матрицы на экран
-void Matrix::print()
+void Matrix::printTable()
 {
     if(mpMatrix!=nullptr)
     {

@@ -1,4 +1,7 @@
 #pragma once
+#ifndef COMPUTER_H
+#define COMPUTER_H
+
 #include<iostream>
 #include<iomanip>
 #include<string>
@@ -6,18 +9,6 @@
 
 class Computer                                  //класс Компьютер (Вычислительная Машина)
 {
-<<<<<<< HEAD
-private:
-    unsigned long RAMInGBytes;
-    unsigned long storageCapacityInGBytes;
-    std::string CPUName;
-    std::string GPUName;
-    std::string motherBoardName;
-
-public:
-    Computer(unsigned long RAM, unsigned long storage, 
-        std::string CPU, std::string GPU, std::string MoBo) :
-=======
 protected:
     unsigned RAMInGBytes;                       //объём ОЗУ
     unsigned storageCapacityInGBytes;           //объем ПЗУ
@@ -32,9 +23,8 @@ public:
     } 
     Computer(unsigned RAM, unsigned storage, 
         std::string CPU, std::string GPU) :
->>>>>>> lab4
         RAMInGBytes(RAM), storageCapacityInGBytes(storage), 
-        CPUName(CPU), GPUName(GPU), motherBoardName(MoBo) 
+        CPUName(CPU), GPUName(GPU) 
     {
     }
 
@@ -49,20 +39,6 @@ public:
     //функция печати шапки таблицы
     virtual inline void printTable();
 
-<<<<<<< HEAD
-    void setRAM(unsigned long size);
-    void setStorage(unsigned long capacity);
-    void setCPUName(std::string name);
-    void setGPUName(std::string name);
-    void setMoBoName(std::string name);
-
-
-    unsigned long getRAM();
-    unsigned long getStorage();
-    std::string getCPUName();
-    std::string getGPUName();
-    std::string getMoBoName();
-=======
     //сеттеры
     inline void setRAM(unsigned size);
     inline void setStorage(unsigned capacity);
@@ -74,6 +50,17 @@ public:
     inline unsigned getStorage();
     inline std::string getCPUName();
     inline std::string getGPUName();
->>>>>>> lab4
+
+
+    bool operator==(const Computer& other) const;
+    bool operator!=(const Computer& other) const;
+    bool operator<(const Computer& other) const;
+    bool operator>(const Computer& other) const;
+    bool operator<=(const Computer& other) const;
+    bool operator>=(const Computer& other) const;
 
 };
+
+#include"computer.cpp"
+
+#endif

@@ -1,17 +1,50 @@
-#include"computer.cpp"
-#include"stationaryComputer.cpp"
-#include"tablet.cpp"
-#include"laptop.cpp"
-#include"monoblock.cpp"
+#include"menu.cpp"
 
-int main(void)
+int main()
 {
-    Computer* dihpc;
+    Computer computers[ARRAY_SIZE];                 // массивы объектов для разных классов устройств
+    PortableComputer portables[ARRAY_SIZE];
+    StationaryComputer stationaries[ARRAY_SIZE];
+    Tablet tablets[ARRAY_SIZE];
+    Laptop laptops[ARRAY_SIZE];
+    Monoblock monoblocks[ARRAY_SIZE];
 
-    Computer niggapc(16, 1000, "kykyryzen 9", "rtx 6090");
-    
-    dihpc = &niggapc;
+    int choice;
+    do                                              //зацикливание программы
+    {
+        std::cout << "\n=== ГЛАВНОЕ МЕНЮ ===" << std::endl;
+        std::cout << "1. Компьютеры" << std::endl;
+        std::cout << "2. Портативные компьютеры" << std::endl;
+        std::cout << "3. Стационарные компьютеры" << std::endl;
+        std::cout << "4. Планшеты" << std::endl;
+        std::cout << "5. Ноутбуки" << std::endl;
+        std::cout << "6. Моноблоки" << std::endl;
+        std::cout << "0. Выход" << std::endl;
+        std::cout << "Выбор: ";
+        std::cin >> choice;
 
-    std::cout<<dihpc->getCPUName()<<std::endl;
-    std::cout<<niggapc<<std::endl;
+        switch (choice)                             //выбор действия
+        {
+            case 1:
+                computerMenu(computers);
+                break;
+            case 2:
+                portableComputerMenu(portables);
+                break;
+            case 3:
+                stationaryComputerMenu(stationaries);
+                break;
+            case 4:
+                tabletMenu(tablets);
+                break;
+            case 5:
+                laptopMenu(laptops);
+                break;
+            case 6:
+                monoblockMenu(monoblocks);
+                break;
+        }
+    } while (choice != 0);
+
+    return 0;
 }

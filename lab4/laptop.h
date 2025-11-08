@@ -1,4 +1,7 @@
 #pragma once
+#ifndef LAPTOP_H
+#define LAPTOP_H
+
 #include"portableComputer.h" 
 
 class Laptop : public PortableComputer              //класс Ноутбук
@@ -31,7 +34,16 @@ public:
     //функция печати шапки таблицы
     virtual inline void printTable();
 
+
+    // Операторы сравнения
+    bool operator==(const Laptop& other) const;
+    bool operator!=(const Laptop& other) const;
+    bool operator<(const Laptop& other) const;
+    bool operator>(const Laptop& other) const;
+    bool operator<=(const Laptop& other) const;
+    bool operator>=(const Laptop& other) const;
 };
 
+#include"laptop.cpp"
 
-
+#endif

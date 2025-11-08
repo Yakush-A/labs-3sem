@@ -1,4 +1,7 @@
 #pragma once
+#ifndef STATIONARYCOMPUTER_H
+#define STATIONARYCOMPUTER_H
+
 #include"computer.h"
 
 class StationaryComputer : public Computer          //класс Стационарный Компьютер 
@@ -29,4 +32,17 @@ public:
 
     //функция печати шапки таблицы
     virtual inline void printTable();
+
+    // Операторы сравнения
+    bool operator==(const StationaryComputer& other) const;
+    bool operator!=(const StationaryComputer& other) const;
+    bool operator<(const StationaryComputer& other) const;
+    bool operator>(const StationaryComputer& other) const;
+    bool operator<=(const StationaryComputer& other) const;
+    bool operator>=(const StationaryComputer& other) const;
 };
+
+
+#include"stationaryComputer.cpp"
+
+#endif
